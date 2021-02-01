@@ -3,7 +3,7 @@ import { darken } from 'polished';
 
 export const Container = styled.View`
   flex: 1;
-  background: #3f51b5;
+  background: #424242;
 `;
 
 export const Product = styled.View`
@@ -12,6 +12,8 @@ export const Product = styled.View`
   margin: 15px;
   border-radius: 4px;
   width: 220px;
+  
+  
 `;
 export const Image = styled.Image`
   height: 200px;
@@ -27,9 +29,9 @@ export const Price = styled.Text`
   font-weight: bold;
 `;
 export const AddCartButton = styled.TouchableOpacity`
-  background: #039be5;
+  background: #4527a0;
   flex-direction: row;
-  border-radius: 4px;
+  border-radius: 12px;
   margin-top: auto;
   align-items: center;
 `;
@@ -42,7 +44,7 @@ export const AddCartButtonText = styled.Text`
 
 export const ProductAmount = styled.View`
   padding: 12px;
-  background: ${darken(0.02, '#039be5')};
+  background: ${darken(0.01, '#4527a0')};
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   flex-direction: row;

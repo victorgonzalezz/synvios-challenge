@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Container } from './styles';
+import { Wrapper, Container, TouchableLogo, Logo } from './styles';
 
-const HeaderLogo: React.FC = () => {
-  return <Container>LOGO</Container>;
-}
-
-export default HeaderLogo;
+const HeaderLogo = ({ navigation }) => {
+  return (
+    <Wrapper>
+      <Container>
+        <TouchableLogo onPress={() => navigation.navigate('Home')} />
+      </Container>
+    </Wrapper>
+  );
+};

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+
 import { View, Text, FlatList, StyleSheet, ScrollView } from 'react-native';
+import * as CartActions from '../../store/modules/cart/actions';
 import {
   Container,
   Product,
@@ -12,6 +16,7 @@ import {
   AddCartButton,
   AddCartButtonText,
 } from './styles';
+
 import api from '../../services/api';
 import { formatPrice } from '../../util/format';
 
@@ -25,23 +30,37 @@ interface Product {
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  // const [setLoading] = useState(false);
+  const amount = useSelector(state =>
+    state.cart.reduce((sumAmount, product) => {
+      sumAmount[product.id] = product.amount;
+
+      return sumAmount;
+    }, {})
+  );
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    // setLoading(true);
+    
 
     const loadProducts = async () => {
       const response = await api.get<Product[]>('/products');
-      console.log(response.data);
       const data = response.data.map(product => ({
         ...product,
         priceFormatted: formatPrice(product.price),
       }));
 
       setProducts(data);
-      // setLoading(false);
+      
     };
     loadProducts();
   }, []);
+
+  const handleAddProduct = id => {
+    const navigation = useNavigation();
+    dispatch(CartActions.addToCartRequest(id));
+    navigation.navigate('Card');
+  };
+  
   return (
     <Container>
     <FlatList
@@ -54,12 +73,13 @@ const Home = () => {
         <Product>
             <Image source={{ uri:`${item.image}`}} />
             <Title>{item.title}</Title>
-            <Price>{item.price}</Price>
+            <Price>{item.priceFormatted}</Price>
 
-          <AddCartButton onPress={() => {} }>
+
+          <AddCartButton onPress={() => handleAddProduct(item.id)}>
             <ProductAmount>
               <Icon name="add-shopping-cart" size={20} color="#fff" />
-              <ProductAmountText> 0 </ProductAmountText>
+              <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
             </ProductAmount>
             <AddCartButtonText>ADICIONAR AO CARRINHO</AddCartButtonText>
           </AddCartButton>

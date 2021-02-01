@@ -22,6 +22,7 @@ export const BasketContainer = styled.TouchableOpacity`
 `;
 
 export const ItemCount = styled.Text`
+
   position: absolute;
   text-align: center;
   top: -8px;
