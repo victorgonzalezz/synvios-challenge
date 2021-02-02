@@ -7,11 +7,15 @@ import { formatPrice } from '../../../util/format';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 // import NavigationService from '../../../services/navigation';
 
-function* addToCart({ id }) {
-  const productExists = yield select(state =>
-    state.cart.find(product => product.id === id)
-  );
+interface IProduct {
+  id: number;
+}
 
+function* addToCart({id}: IProduct ) {
+  const productExists = yield select(state =>
+    state.cart.find((product: any) => product.id === id)
+  );
+    console.log('entrei')
   const stock = yield call(api.get, `/stock/${id}`);
 
   const stockAmount = stock.data.amount;
@@ -36,11 +40,16 @@ function* addToCart({ id }) {
 
     yield put(addToCartSuccess(data));
 
-    NavigationService.navigate('Cart');
+    // NavigationService.navigate('Cart');
   }
 }
 
-function* updateAmount({ id, amount }) {
+interface IAmount {
+  id: number;
+  amount: number;
+}
+
+function* updateAmount({ id, amount }:IAmount) {
   if (amount <= 0) return;
 
   const stock = yield call(api.get, `/stock/${id}`);

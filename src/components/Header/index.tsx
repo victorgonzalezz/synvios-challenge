@@ -10,9 +10,12 @@ type Props = {
   navigation: StackNavigationProp<any>;
 };
 
+interface Cart {
+  cart: any;
+}
 
 const Header: React.FC<Props> = ({ navigation } ) => {
-  const cartSize = useSelector(state => state.cart.length);
+  const cartSize = useSelector((state: Cart) => state.cart.length);
 
   return (
     <Wrapper>

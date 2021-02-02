@@ -5,8 +5,8 @@ import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
 // const sagaMonitor = null;
-// const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
-
+const sagaMiddleware = createSagaMiddleware();
+const enhancer = applyMiddleware(sagaMiddleware);
 // const enhancer = __DEV__
 //   ? compose(
 //       console.tron.createEnhancer(),
@@ -14,8 +14,8 @@ import rootSaga from './modules/rootSaga';
 //     )
 //   : applyMiddleware(sagaMiddleware);
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, enhancer);
 
-// sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 export default store;

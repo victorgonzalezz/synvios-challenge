@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 
 import Header from './components/Header';
-import HeaderLogo from './components/HeaderLogo';
+// import HeaderLogo from './components/HeaderLogo';
 
 const App = createStackNavigator();
 
@@ -14,14 +14,14 @@ const Routes: React.FC = () => (
   <App.Navigator
     initialRouteName="Home"
     screenOptions={{
-      // headerStyle: {
-      //   backgroundColor:#141419;
-      // }
+      headerStyle: {
+        backgroundColor:'#141419',
+      },
       // headerLeft: <HeaderLogo />,
-      // headerRight: <Header /> 
-      // cardStyle: {
-      //   backgroundColor: '#141419',
-      // },
+      // headerRight: <Header /> ,
+      cardStyle: {
+        backgroundColor: '#141419'
+      },
     }}
     >
   

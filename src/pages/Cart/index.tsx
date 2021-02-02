@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { formatPrice } from '../../util/format';
 
 import * as CartAction from '../../store/modules/cart/actions';
@@ -29,18 +30,22 @@ import {
   EmptyText,
 } from './styles';
 
+interface ICart {
+  cart: any;
+}
+
 const Cart = () => {
-  const cart = useSelector(state =>
-    state.cart.map(product => ({
+  const cart = useSelector((state: ICart) =>
+    state.cart.map((product: any) => ({
       ...product,
       subtotal: formatPrice(product.price * product.amount),
     }))
   );
 
-  const total = useSelector(state =>
+  const total = useSelector((state: ICart) =>
     formatPrice(
       state.cart.reduce(
-        (sumTotal, product) => sumTotal + product.price * product.amount,
+        (sumTotal: number, product:any) => sumTotal + product.price * product.amount,
         0
       )
     )
@@ -48,11 +53,11 @@ const Cart = () => {
 
   const dispatch = useDispatch();
 
-  const increment = product => {
+  const increment = (product: any) => {
     dispatch(CartAction.updateAmountRequest(product.id, product.amount + 1));
   };
 
-  const decrement = product => {
+  const decrement = (product: any) => {
     dispatch(CartAction.updateAmountRequest(product.id, product.amount - 1));
   };
 
@@ -61,7 +66,7 @@ const Cart = () => {
       {cart.length ? (
         <>
           <CartList>
-            {cart.map(product => (
+            {cart.map((product: any) => (
               <Product key={product.id}>
                 <ProductInfo>
                   <Image source={{ uri: product.image }} />
