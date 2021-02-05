@@ -1,57 +1,68 @@
-import styled from 'styled-components/native';
-import { darken } from 'polished';
+import styled from "styled-components/native";
+
+import {RectButton} from "react-native-gesture-handler"
 
 export const Container = styled.View`
-  flex: 1;
-  background: #424242;
+    background: #191920;
+    flex: 1;
+    padding: 10px;
 `;
 
-export const Product = styled.View`
-  background: #fff;
-  padding: 10px;
-  margin: 15px;
-  border-radius: 4px;
-  width: 220px;
-  
-  
+export const Item = styled.View`
+    background: #FFF;
+    flex-direction: row;
+    border-radius: 7px;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 10px;
 `;
+
 export const Image = styled.Image`
-  height: 200px;
-  width: 200px;
-`;
-export const Title = styled.Text`
-  font-size: 16px;
-`;
-export const Price = styled.Text`
-  margin: 14px 0;
-  font-size: 20px;
-  margin-bottom: 14px;
-  font-weight: bold;
-`;
-export const AddCartButton = styled.TouchableOpacity`
-  background: #4527a0;
-  flex-direction: row;
-  border-radius: 12px;
-  margin-top: auto;
-  align-items: center;
-`;
-export const AddCartButtonText = styled.Text`
-  flex: 1;
-  text-align: center;
-  font-weight: bold;
-  color: #fff;
+    height: 120px;
+    width: 120px;
 `;
 
-export const ProductAmount = styled.View`
-  padding: 12px;
-  background: ${darken(0.01, '#4527a0')};
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  flex-direction: row;
-  align-items: center;
+export const ItemInfo = styled.View`
+    flex: 1;
+    margin-left: 10px;
 `;
 
-export const ProductAmountText = styled.Text`
-  color: #fff;
-  margin: 0px 4px 0px 10px;
+export const ItemName = styled.Text.attrs(props => ({
+    numberOfLines: 2
+}))`
+    font-size: 15px;
+`;
+
+export const ItemPrice = styled.Text`
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px 0;
+`;
+
+export const Button = styled(RectButton)`
+    flex-direction: row;
+    align-items: center;
+    background: #7159c1;
+    border-radius: 7px;
+    width: 150px;
+`;
+
+export const ButtonCart = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    background: rgba(0,0,0,0.1);
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+`;
+
+export const Quant = styled.Text`
+    color: #FFF;
+`;
+
+export const ButtonLabel = styled.Text`
+    color: #FFF;
+    font-weight: bold;
+    margin: auto;
 `;

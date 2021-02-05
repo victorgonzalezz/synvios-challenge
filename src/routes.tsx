@@ -1,33 +1,23 @@
-import React from 'react';
-import { } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
 
-import Home from './pages/Home';
-import Cart from './pages/Cart';
+import {createStackNavigator} from "@react-navigation/stack";
 
-import Header from './components/Header';
-// import HeaderLogo from './components/HeaderLogo';
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
 
-const App = createStackNavigator();
+import Header from "./components/Header";
 
-const Routes: React.FC = () => (
-  <App.Navigator
-    initialRouteName="Home"
-    screenOptions={{
-      headerStyle: {
-        backgroundColor:'#141419',
-      },
-      // headerLeft: <HeaderLogo />,
-      // headerRight: <Header /> ,
-      cardStyle: {
-        backgroundColor: '#141419'
-      },
-    }}
-    >
-  
-    <App.Screen name="Home" component={Home} />
-    <App.Screen name="Cart" component={Cart} />
-  </App.Navigator>
-);
-   
+const Stack = createStackNavigator();
+
+function Routes() {
+    return (
+        <Stack.Navigator screenOptions={{
+                header: (props) => <Header navigation={props.navigation}/>
+            }}>
+            <Stack.Screen name="Home" component={Home}/>
+            <Stack.Screen name="Cart" component={Cart}/>
+        </Stack.Navigator>
+    );
+}
+
 export default Routes;

@@ -1,38 +1,31 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native"
 
-export const Wrapper = styled.SafeAreaView`
-  flex: 0;
-  background: #141419;
-  flex-direction: row;
+export const HeaderContainer = styled.View`
+    background: #191920;
+    flex-direction: row;
+    padding: 20px 15px;
+    align-items: center;
+    justify-content: space-between;
 `;
 
-export const Container = styled.View`
-  flex-direction: row;
-  flex: 1;
-  justify-content: space-between;
-  padding: 20px;
+export const Logo = styled.Image`
+    width: 185px;
+    height: 24px;
 `;
 
-export const BasketContainer = styled.TouchableOpacity`
-  height: 24px;
-  width: 24px;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
+export const CartInfo = styled.View`
+    position: relative;
 `;
 
-export const ItemCount = styled.Text`
-
-  position: absolute;
-  text-align: center;
-  top: -8px;
-  right: -8px;
-  min-width: 18px;
-  min-height: 18px;
-  background: #7159c1;
-  color: #fff;
-  font-size: 12px;
-  padding: 2px;
-  border-radius: 9px;
-  overflow: hidden;
+export const CartQuant = styled.Text`
+    position: absolute;
+    color: #FFF;
+    background: #7159c1;
+    border-radius: 50px;
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    text-align: center;
+    top: -10px;
+    right: -10px;
 `;

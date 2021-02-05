@@ -1,23 +1,22 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React from "react";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { Provider } from 'react-redux';
-import store from './src/store';
+import {StatusBar} from "react-native";
 
-import Router from './src/routes';
+import {NavigationContainer} from "@react-navigation/native";
 
-const App = () => {
-  return (
-    <NavigationContainer>
-    <Provider store={store}>
-      <StatusBar barStyle="light-content" backgroundColor="#141419" />
-      <Router
-        // ref={navigatorRef => NavigationService.setNavigator(navigatorRef)}
-      />
-     </Provider>
-     </NavigationContainer>
-  );
-};
+import Routes from "./src/routes";
+
+import {Cart} from "./src/Context/CartContext";
+
+function App(){
+    return (
+        <NavigationContainer>
+            <StatusBar backgroundColor={"#191920"}/>
+            <Cart>
+                <Routes/>
+            </Cart>
+        </NavigationContainer>
+    );
+}
 
 export default App;

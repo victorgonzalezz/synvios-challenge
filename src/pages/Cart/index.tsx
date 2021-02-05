@@ -1,120 +1,119 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useContext, useState, useEffect} from "react";
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Modal from "../../components/Modal";
 
-import { formatPrice } from '../../util/format';
+import {formatPrice} from "../../util/format";
 
-import * as CartAction from '../../store/modules/cart/actions';
+import CartContext from "../../Context/CartContext";
+
+import {ScrollView} from "react-native";
+
+import {BorderlessButton} from "react-native-gesture-handler";
+
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import {
-  Container,
-  CartList,
-  Product,
-  ProductInfo,
-  Image,
-  Details,
-  Title,
-  Price,
-  ProductDelete,
-  ProductControls,
-  AmountButton,
-  ProductAmount,
-  ProductSubtotal,
-  TotalContainer,
-  TotalText,
-  TotalAmount,
-  Order,
-  OrderText,
-  EmptyContainer,
-  EmptyText,
-} from './styles';
+    Container,
+    CartContainer,
+    ItemContainer,
+    Image,
+    InfoContainer,
+    ItemText,
+    ItemPrice,
+    Item,
+    FooterItem,
+    Quant,
+    QuantItem,
+    SubTotal,
+    FooterCartContainer,
+    TotalText,
+    TotalPrice,
+    Button,
+    ButtonLabel,
+    TextCartEmpty,
+    CartEmpty
+} from "./styles";
 
-interface ICart {
-  cart: any;
+function Cart(){
+    const {cartItems, addToCart, removeToCart, deleteToCart, showModal} = useContext(CartContext);
+
+    const [total, setTotal] = useState("");
+
+    useEffect(() => {
+        function calculateTotal(){
+            const totalProducts = cartItems.reduce((acumulate, product) => {
+                return acumulate + (product.price * product.amount!);
+            }, 0);
+            
+            setTotal(formatPrice(totalProducts));
+        }
+
+        calculateTotal();
+    }, [cartItems]);
+
+    if(cartItems.length === 0){
+        return (
+            <Container>
+                <CartContainer>
+                    <CartEmpty>
+                        <Icon name="remove-shopping-cart" size={70} color="#999"/>
+                        <TextCartEmpty>Seu carrinho está vazio.</TextCartEmpty>
+                    </CartEmpty>
+                </CartContainer>
+            </Container>
+        );
+    }
+
+    return (
+        <Container>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <CartContainer>
+                    {cartItems.map(item => (
+                        <Item key={item.id}>
+                            <ItemContainer>
+                                <Image source={{uri: `${item.image}`}}/>
+                                <InfoContainer>
+                                    <ItemText>{item.title}</ItemText>
+                                    <ItemPrice>{item.priceFormatted}</ItemPrice>
+                                </InfoContainer>
+                                <BorderlessButton onPress={() => deleteToCart(item)}>
+                                    <Icon name="delete-forever" color="#7159c1" size={30}/>
+                                </BorderlessButton>
+                            </ItemContainer>
+                            <FooterItem>
+                                <Quant>
+                                    <BorderlessButton onPress={() => removeToCart(item)}>
+                                        <Icon
+                                            name="remove-circle-outline"
+                                            color="#7159c1"
+                                            size={30}
+                                        />
+                                    </BorderlessButton>
+                                    <QuantItem>{item.amount}</QuantItem>
+                                    <BorderlessButton onPress={() => addToCart(item)}>
+                                        <Icon
+                                            name="add-circle-outline"
+                                            color="#7159c1"
+                                            size={30}
+                                        />
+                                    </BorderlessButton>
+                                </Quant>
+                                <SubTotal>{item.subTotal}</SubTotal>
+                            </FooterItem>
+                        </Item>
+                    ))}
+                    <FooterCartContainer>
+                        <TotalText>TOTAL</TotalText>
+                        <TotalPrice>{total}</TotalPrice>
+                        <Button>
+                            <ButtonLabel>FINALIZAR PEDIDO</ButtonLabel>
+                        </Button>
+                    </FooterCartContainer>
+                </CartContainer>
+            </ScrollView>
+            {showModal && <Modal/>}
+        </Container>
+    );
 }
-
-const Cart = () => {
-  const cart = useSelector((state: ICart) =>
-    state.cart.map((product: any) => ({
-      ...product,
-      subtotal: formatPrice(product.price * product.amount),
-    }))
-  );
-
-  const total = useSelector((state: ICart) =>
-    formatPrice(
-      state.cart.reduce(
-        (sumTotal: number, product:any) => sumTotal + product.price * product.amount,
-        0
-      )
-    )
-  );
-
-  const dispatch = useDispatch();
-
-  const increment = (product: any) => {
-    dispatch(CartAction.updateAmountRequest(product.id, product.amount + 1));
-  };
-
-  const decrement = (product: any) => {
-    dispatch(CartAction.updateAmountRequest(product.id, product.amount - 1));
-  };
-
-  return (
-    <Container>
-      {cart.length ? (
-        <>
-          <CartList>
-            {cart.map((product: any) => (
-              <Product key={product.id}>
-                <ProductInfo>
-                  <Image source={{ uri: product.image }} />
-                  <Details>
-                    <Title>{product.title}</Title>
-                    <Price>{product.priceFormatted}</Price>
-                  </Details>
-                  <ProductDelete
-                    onPress={() =>
-                      dispatch(CartAction.removeFromCart(product.id))
-                    }
-                  >
-                    <Icon name="delete-forever" size={24} color="#141419" />
-                  </ProductDelete>
-                </ProductInfo>
-                <ProductControls>
-                  <AmountButton onPress={() => decrement(product)}>
-                    <Icon
-                      name="remove-circle-outline"
-                      size={20}
-                      color="#7159c1"
-                    />
-                  </AmountButton>
-                  <ProductAmount value={String(product.amount)} />
-                  <AmountButton onPress={() => increment(product)}>
-                    <Icon name="add-circle-outline" size={20} color="#7159c1" />
-                  </AmountButton>
-                  <ProductSubtotal>{product.subtotal}</ProductSubtotal>
-                </ProductControls>
-              </Product>
-            ))}
-          </CartList>
-          <TotalContainer>
-            <TotalText>TOTAL</TotalText>
-            <TotalAmount>{total}</TotalAmount>
-            <Order>
-              <OrderText>FINALIZAR PEDIDO</OrderText>
-            </Order>
-          </TotalContainer>
-        </>
-      ) : (
-        <EmptyContainer>
-          <Icon name="remove-shopping-cart" size={64} color="#eee" />
-          <EmptyText>Seu carrinho está vazio.</EmptyText>
-        </EmptyContainer>
-      )}
-    </Container>
-  );
-};
 
 export default Cart;

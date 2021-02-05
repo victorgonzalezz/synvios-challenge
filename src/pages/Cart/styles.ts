@@ -1,113 +1,112 @@
-import styled from 'styled-components/native';
-import { darken } from 'polished';
+import styled from "styled-components/native";
+
+import {RectButton} from "react-native-gesture-handler";
 
 export const Container = styled.View`
-  padding: 10px;
-  background: #fff;
-  border-radius: 4px;
-  margin: 15px;
+    background: #191920;
+    flex: 1;
+    padding: 10px;
 `;
 
-export const CartList = styled.View`
-  border: 2px solid #ddd;
-  border-radius: 4px;
+export const CartContainer = styled.View`
+    background: #FFF;
+    border-radius: 7px;
+    overflow: hidden;
+    padding: 15px;
 `;
 
-export const Product = styled.View``;
+export const Item = styled.View`
+    flex-direction: column;
+`;
 
-export const ProductInfo = styled.View`
-  flex-direction: row;
-  align-items: center;
+export const ItemContainer = styled.View`
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const Image = styled.Image`
-  height: 80px;
-  width: 80px;
+    width: 100px;
+    height: 100px;
 `;
 
-export const ProductDelete = styled.TouchableOpacity`
-  padding: 6px;
+export const InfoContainer = styled.View`
+    flex: 1;
+    margin-left: 10px;
 `;
 
-export const Details = styled.View`
-  flex: 1;
-  margin-left: 10px;
-  padding: 10px;
+export const ItemText = styled.Text.attrs(props => ({
+    numberOfLines: 2
+}))`
+    font-size: 15px;
 `;
 
-export const Title = styled.Text``;
-
-export const Price = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 5px;
+export const ItemPrice = styled.Text`
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
 `;
 
-export const ProductControls = styled.View`
-  flex-direction: row;
-  align-items: center;
-  background: #ddd;
-  padding: 8px;
-  border-radius: 4px;
+export const FooterItem = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #EEE;
+    padding: 10px;
+    border-radius: 5px;
 `;
 
-export const AmountButton = styled.TouchableOpacity``;
-
-export const ProductAmount = styled.TextInput.attrs({
-  readonly: true,
-})`
-  background: #fff;
-  padding: 5px;
-  margin: 0 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  min-width: 52px;
+export const Quant = styled.View`
+    flex-direction: row;
+    align-items: center;
 `;
 
-export const ProductSubtotal = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
-  flex: 1;
-  text-align: right;
+export const QuantItem = styled.Text`
+    background: #FFF;
+    border-radius: 5px;
+    width: 50px;
+    padding: 5px 10px;
+    margin: 0 5px;
 `;
 
-export const TotalContainer = styled.View`
-  margin-top: 30px;
+export const SubTotal = styled.Text`
+    font-weight: bold;
+    font-size: 20px;
+`;
+
+export const FooterCartContainer = styled.View`
+    align-items: center;
+    margin-top: 30px;
 `;
 
 export const TotalText = styled.Text`
-  text-align: center;
-  color: #999;
-  font-weight: bold;
+    color: #999;
+    font-size: 20px;
 `;
 
-export const TotalAmount = styled.Text`
-  font-size: 30px;
-  font-weight: bold;
-  padding: 5px 0 30px;
-  text-align: center;
+export const TotalPrice = styled.Text`
+    font-weight: bold;
+    font-size: 30px;
 `;
 
-export const Order = styled.View`
-  border-radius: 4px;
-  background: ${darken(0.03, '#7159c1')};
-  padding: 12px 0;
+export const Button = styled(RectButton)`
+    background: #7159c1;
+    width: 100%;
+    border-radius: 7px;
+    margin-top: 30px;
 `;
 
-export const OrderText = styled.Text`
-  text-align: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
+export const ButtonLabel = styled.Text`
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
 `;
 
-export const EmptyContainer = styled.View`
-  align-items: center;
-  justify-content: center;
+export const TextCartEmpty = styled.Text`
+    font-weight: bold;
+    font-size: 25px;
 `;
 
-export const EmptyText = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 18px;
+export const CartEmpty = styled.View`
+    align-items: center;
 `;

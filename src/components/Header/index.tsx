@@ -1,32 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React, {useContext} from "react";
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Wrapper, Container, BasketContainer, ItemCount } from './styles';
+import CartContext from "../../Context/CartContext";
+
+import {StackNavigationProp} from "@react-navigation/stack";
+
+import {TouchableOpacity} from "react-native";
+
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 
-type Props = {
-  navigation: StackNavigationProp<any>;
-};
+import {HeaderContainer, Logo, CartInfo, CartQuant} from "./styles";
 
-interface Cart {
-  cart: any;
+interface HeaderProps{
+    navigation: StackNavigationProp<Record<string, object | undefined>, string>
 }
 
-const Header: React.FC<Props> = ({ navigation } ) => {
-  const cartSize = useSelector((state: Cart) => state.cart.length);
+const Header:React.FC<HeaderProps> = ({navigation}) =>{
+    const {cartItems} = useContext(CartContext);
 
-  return (
-    <Wrapper>
-      <Container>
-        <BasketContainer onPress={() => navigation.navigate('Cart')}>
-          <Icon name="shopping-basket" color="#FFF" size={24} />
-          <ItemCount>{cartSize || 0}</ItemCount>
-        </BasketContainer>
-      </Container>
-    </Wrapper>
-  );
-};
+    return (
+        <HeaderContainer>
+            <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+                <CartInfo>
+                    <Icon name="shopping-basket" size={25} color="#FFF"/>
+                    <CartQuant>{cartItems.length}</CartQuant>
+                </CartInfo>
+            </TouchableOpacity>
+        </HeaderContainer>
+    );
+}
 
 export default Header;
